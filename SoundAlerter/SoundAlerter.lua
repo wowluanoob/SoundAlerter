@@ -57,7 +57,7 @@ local SA_UNIT = {
 	arena = L["Arena (enemy)"],
 --	boss = L["Boss"],
 	custom = L["Custom"],
-	partyFriend = "Arena partner (2v2)
+	partyFriend = "Arena partner (2v2)",
 }
 self.SA_UNIT = SA_UNIT
 local SA_TYPE = {
