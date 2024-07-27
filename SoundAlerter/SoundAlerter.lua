@@ -57,6 +57,7 @@ local SA_UNIT = {
 	arena = L["Arena (enemy)"],
 --	boss = L["Boss"],
 	custom = L["Custom"],
+	partyFriend = "Arena partner (2v2)
 }
 self.SA_UNIT = SA_UNIT
 local SA_TYPE = {
@@ -210,7 +211,16 @@ function SoundAlerter:COMBAT_LOG_EVENT_UNFILTERED(event , ...)
 	end
 	if (destGUID) then
 		for k in pairs(SA_UNIT) do
-			if k == "party" then
+			if k == "partyFriend" then
+				if UnitName("party1") ~= nil then
+					for i = 1, 2 do
+						if destGUID ~= UnitGUID("player") then
+						destuid[k] = (UnitGUID("party"..i) == destGUID)
+						break
+						end
+					end
+				end
+			elseif k == "party" then
 				if UnitName("party1") ~= nil then --because UnitInParty always returns true?
 					for i = 1, MAX_PARTY_MEMBERS do
 						if destGUID == UnitGUID(k..i) then
@@ -262,7 +272,16 @@ function SoundAlerter:COMBAT_LOG_EVENT_UNFILTERED(event , ...)
 	end
 	if (sourceGUID) then
 		for k in pairs(SA_UNIT) do
-			if k == "party" then
+			if k == "partyFriend" then
+				if UnitName("party1") ~= nil then
+					for i = 1, 2 do
+						if sourceGUID ~= UnitGUID("player") then
+						sourceuid[k] = (UnitGUID("party"..i) == sourceGUID)
+						break
+						end
+					end
+				end
+			elseif k == "party" then
 				if UnitName("party1") ~= nil then
 					for i = 1, MAX_PARTY_MEMBERS do
 						if sourceGUID == UnitGUID(k..i) then
